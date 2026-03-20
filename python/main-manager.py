@@ -1,9 +1,6 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from models.py import ArtistaDTO
-from models.py import ArtistaResp
-from models.py import ConciertoDTO
-from models.py import ConciertoResp
+from models import ArtistaDTO, ArtistaResp, ConciertoDTO, ConciertoResp
 from uuid import uuid4, UUID
 
 app = FastAPI()
