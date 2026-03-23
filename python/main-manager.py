@@ -198,7 +198,7 @@ async def obtener_conciertos(lugar: str | None = None):
     return resultados
 
 # GET - Obtener lugar por id
-@app.get("/cocniertos/{id}", response_model=ConciertoResp)
+@app.get("/conciertos/{id}", response_model=ConciertoResp)
 async def obtener_por_id(id: UUID):
     if id not in conciertos_db:
         raise HTTPException(status_code=404, detail="Concierto no encontrado")
