@@ -15,9 +15,9 @@ La selección de colores para esta aplicación no se hizo únicamente con un cri
 
 Al escoger los colores tomamos en cuenta 3 factores principales:
 
-- la relación entre color e identidad de marca,
-- la percepción que generan en el usuario,
-- la accesibilidad visual dentro de una interfaz digital.
+1. La relación entre color e identidad de marca,
+2. La percepción que generan en el usuario,
+3. La accesibilidad visual dentro de una interfaz digital.
 
 En diseño de interfaces, el color influye en la forma en que el usuario interpreta un producto. Algunos tonos transmiten confianza y orden, mientras que otros aportan energía, creatividad o dinamismo. Además, un buen contraste entre fondo y texto mejora la lectura y hace más cómoda la navegación.
 
@@ -94,6 +94,6 @@ Como el proyecto requiere implementar un tema claro/oscuro persistente, la palet
 - **Texto principal:** `#111827`
 - **Acentos:** azul y morado
 
-### ✅ Conclusión
+### Conclusión
 
 La paleta de colores que escogimos busca reflejar: una plataforma profesional de gestión dentro del mundo de la música. El **morado** aporta creatividad e identidad, el **azul** refuerza confianza y estructura, el **naranja** introduce dinamismo y acción, y los tonos **neutros** aseguran legibilidad y equilibrio visual. Todos estos colores permiten construir una interfaz moderna, atractiva y funcional, alineada tanto con el rubro musical como con los requerimientos técnicos del proyecto.
