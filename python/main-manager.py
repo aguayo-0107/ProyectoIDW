@@ -5,7 +5,7 @@ from uuid import uuid4, UUID
 
 app = FastAPI()
 # Cambiar a los origenes permitidos
-origins = ["*"] 
+origins = ["https://proyectoidw.onrender.com/"] 
 
 app.add_middleware(
     CORSMiddleware,
@@ -214,7 +214,7 @@ async def actualizar_fecha(id: UUID, nueva_fecha: str):
     concierto = conciertos_db[id]
 
     if nueva_fecha is not None:
-        concierto["genero"] = nueva_fecha
+        concierto["fecha"] = nueva_fecha
 
     return concierto
 
@@ -243,7 +243,8 @@ async def crear_artista(artista: ArtistaDTO):
     nuevo_artista = {
         "id": nuevo_id,
         "nombre": artista.nombre,
-        "genero": artista.genero
+        "genero": artista.genero,
+        "ranking": artista.ranking
     }
 
     artistas_db[nuevo_id] = nuevo_artista
