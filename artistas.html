@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="img/logo.png">
+    <title>Managers</title>    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <img src="img/logo.png" alt="Bootstrap" width="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="artistas.html">Artistas</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="conciertos.html">Conciertos</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="estadisticas.html">Estadísticas</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tema
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false" id="btn-light">Claro</button>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="false" id="btn-dark">Oscuro</button>
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+
+    <main>
+        <header class="text-center py-5 mb-5 shadow-sm">
+            <div class="container">
+                <h1 class="display-4 fw-bold">Artistas</h1>
+            </div>
+        </header>
+        <div class="container-fluid p-5">
+            <div>
+                <div class="row p-2">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#lista" role="button" aria-expanded="false" aria-controls="collapseExample"  onclick="listaCompletaA()">
+                    Lista Completa de Artistas
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                    </a>
+                    <div class="collapse" id="lista">
+                        <div class="card card-body">
+                            <div id="info_artistas"> </div>
+                        </div>
+                        <br/>
+                    </div>
+                <hr/>
+                </div>
+                <div class="row p-2">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#alta" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Dar de alta
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                    </a>
+                    <div class="collapse" id="alta">
+                        <div class="card card-body">
+                            <form onsubmit = "altaA(event, this)">
+                                <label for="artista" class="form-label"> Nombre: </label>
+                                <input type="text" id="artista" name="nombre" class="form-control" required/>
+                                <br/>
+                                <label for="genero" class="form-label"> Genero: </label>
+                                <input type="text" id="genero" name="genero" class="form-control" required/>
+                                <br/>
+                                <button class="btn btn-primary" type="submit"> Alta </button> 
+                            </form>
+                        </div>
+                        <br/>
+                    </div>
+                <hr/>
+                </div>
+                <div class="row p-2">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Dar de baja
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                    </a>
+                    <div class="collapse" id="baja">
+                        <div class="card card-body">
+                            <form onsubmit = "bajaA(event, this)">
+                                <label for="artista" class="form-label"> ID: </label>
+                                <input type="text" id="artista" name="nombre" class="form-control" required/>
+                                <br/>
+                                <button class="btn btn-primary" type="submit"> Baja </button> 
+                            </form>
+                        </div>
+                        <br/>
+                    </div>
+                <hr/>
+                </div>
+                <div class="row p-2">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Modificar un artista
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                    </a>
+                    <div class="collapse" id="modificacion">
+                        <div class="card card-body">
+                            <form onsubmit = "modC(event, this)">
+                                <label for="artista" class="form-label"> ID: </label>
+                                <input type="text" id="artista" name="nombre" class="form-control" required/>
+                                <br/>
+                                <label for="genero" class="form-label"> Genero: </label>
+                                <input type="text" id="genero" name="genero" class="form-control" required/>
+                                <br/>
+                                <button class="btn btn-primary" type="submit"> Modificar </button> 
+                            </form>
+                        </div>
+                        <br/>
+                    </div>
+                <hr/>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="pt-5 pb-4 shadow-lg">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-xl-3  mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Equipo 1</h5>
+                    <ul>
+                        <li>Mariana Aguayo</li>
+                        <li>Kyrie Flores Absalón</li>
+                        <li>Solange Lejeune Tomao</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3  mt-3">
+                    <a class="h5 text-uppercase mb-4 font-weight-bold text-primary" href="autores.html">Sobre el equipo</a>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="text-center">
+                <p>2026 ITAM: <strong>Introducción al Desarrollo Web</strong></p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="./javascript/funciones.js"></script>
+    <script>
+        //Funcionalidad
+        const doc = document.documentElement;
+        const btnL  = document.getElementById('btn-light');
+        const btnD  = document.getElementById('btn-dark');
+
+        const saved = localStorage.getItem('theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        applyTheme(saved ?? system);
+
+        btnL.addEventListener('click', () => {
+            applyTheme("light");
+        });
+        btnD.addEventListener('click', () => {
+            applyTheme("dark");
+        });
+
+        function applyTheme(theme) {
+            doc.setAttribute('data-bs-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+    </script>
+    <script>
+        //APIs
+    </script>
+</body>
+</html>
