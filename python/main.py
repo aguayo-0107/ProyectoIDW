@@ -5,7 +5,8 @@ from uuid import uuid4, UUID
 
 app = FastAPI()
 # Cambiar a los origenes permitidos
-origins = ["*"] 
+origins = ["http://127.0.0.1:5500",  # Para pruebas, quitar al final
+           "https://musicaidw.site"] 
 
 app.add_middleware(
     CORSMiddleware,
