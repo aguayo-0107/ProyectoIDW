@@ -9,15 +9,16 @@ class ArtistaResp(BaseModel):
     id: UUID
     nombre: str
     genero: str
+    ranking: int
     
 class ConciertoDTO(BaseModel):
     lugar: str
-    artistaID: str
+    artistaID: UUID
     fecha: str
     
 class ConciertoResp(BaseModel):
     id: UUID
     lugar: str
-    artistaID: str
+    artistaID: UUID
     fecha: str
     
