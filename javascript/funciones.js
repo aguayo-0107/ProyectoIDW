@@ -1,4 +1,4 @@
-const url_base = ""
+const url_base = "https://proyectoidw.onrender.com"
 
 //CONCIERTOS
 //Post /conciertos
