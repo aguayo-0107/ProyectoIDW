@@ -70,41 +70,21 @@
     </nav>
     
     <main>
-        <header class="text-center py-5 mb-5 shadow-sm">
-            <div class="container">
-                <h1 class="display-4 fw-bold">Nuestro Equipo</h1>
-            </div>
-        </header>
-
-        <section id="autores" class="container mb-5">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm custom-card">
-                        <img src="img/logo.png" class="card-img-top rounded-circle mx-auto mt-4 w-50" alt="Autor 1">
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Mariana Aguayo</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm custom-card">
-                        <img src="img/logo.png" class="card-img-top rounded-circle mx-auto mt-4 w-50" alt="Autor 2">
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Kyrie Flores</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm custom-card">
-                        <img src="img/logo.png" class="card-img-top rounded-circle mx-auto mt-4 w-50" alt="Autor 3">
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Slonage Lejeune</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        
+    </main>
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" onclick="anterior()">Anterior</a>
+        </li>
+        <li class="page-item"><a class="page-link" onclick="cambio()">1</a></li>
+        <li class="page-item"><a class="page-link" onclick="cambio()">2</a></li>
+        <li class="page-item"><a class="page-link" onclick="cambio()">3</a></li>
+        <li class="page-item">
+            <a class="page-link" onclick="siguiente()">Siguiente</a>
+        </li>
+    </ul>
+    </nav>
     <footer class="pt-5 pb-4 shadow-lg">
         <div class="container text-center text-md-start">
             <div class="row">
