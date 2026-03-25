@@ -56,7 +56,7 @@
         </header>
         <div class="container-fluid p-5">
             <div class="row p-2">
-                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#lista" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="listaCompletaC()">
+                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#lista" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadConciertos()">
                 Lista Completa de Conciertos
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -71,7 +71,7 @@
             <hr/>
             </div>
             <div class="row p-2">
-                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#alta" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#alta" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadArtists()">
                 Dar de alta
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -158,9 +158,7 @@
                 </div>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-            <script src="calendar.js"></script>
+            
         </div>
 
     </main>    
@@ -214,6 +212,17 @@
     </script>
     <script>
         //APIs
+        async function loadConciertos() {
+            const res = await getConciertos()
+            if (res[0])
+                console.log(res[1])
+        }
+
+        async function loadArtists() {
+            const res = await getArtistas()
+            if (res[0])
+                console.log(res[1])
+        }
     </script>
 </body>
 </html>
