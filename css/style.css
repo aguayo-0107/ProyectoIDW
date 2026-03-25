@@ -1,3 +1,93 @@
 .carousel-inner {
     max-height: 25rem;
 }
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Colores */
+
+:root {
+    --color-morado: #6D28D9;
+    --color-morado-rgb: 109, 40, 217;
+    
+    --color-azul: #2563EB;
+    --color-azul-rgb: 37, 99, 235;
+    
+    --color-naranja: #F97316;
+    --color-naranja-rgb: 249, 115, 22;
+    
+    --color-grafito: #111827;
+    --color-blanco-suave: #F9FAFB;
+    --color-pizarra: #374151;
+
+    --bs-primary: var(--color-morado);
+    --bs-primary-rgb: var(--color-morado-rgb);
+    
+    --bs-secondary: var(--color-azul);
+    --bs-secondary-rgb: var(--color-azul-rgb);
+    
+    --bs-body-bg: var(--color-blanco-suave);
+    --bs-body-color: var(--color-grafito);
+    
+    --bs-link-color: var(--color-azul);
+    --bs-border-color: var(--color-pizarra);
+}
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: var(--color-grafito);
+    --bs-body-color: var(--color-blanco-suave);
+    
+    --bs-primary: var(--color-morado); 
+    --bs-secondary: var(--color-pizarra);
+    
+    --bs-tertiary-bg: #1f2937;
+}
+
+.btn-primary {
+    background-color: var(--color-morado);
+    border-color: var(--color-morado);
+}
+.btn-primary:hover {
+    background-color: #571fb3;
+    border-color: #571fb3;
+}
+.btn-info {
+    background-color: var(--color-azul);
+    border-color: var(--color-azul);
+    color: white;
+}
+.btn-info:hover {
+    background-color: #164dc4;
+    border-color: #164dc4;
+    color: white;
+}
+.btn-accent {
+    background-color: var(--color-naranja);
+    border-color: var(--color-naranja);
+    color: white;
+}
+
+.btn-accent:hover {
+    background-color: #ea580c;
+    color: white;
+}
+
+.text-accent { color: var(--color-naranja) !important; }
+.bg-accent { background-color: var(--color-naranja) !important; }
+
+h1, h2, h3, h4, h5 {
+    color: var(--color-morado);
+    font-weight: 700;
+}
+
+[data-bs-theme="dark"] h1, 
+[data-bs-theme="dark"] h2 {
+    color: var(--color-blanco-suave);
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-morado);
+    color: white;
+}
