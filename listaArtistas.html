@@ -8,7 +8,7 @@
     <link rel="icon" href="img/logo.png">
     <title>Managers</title>    
 </head>
-<body>
+<body onload="loadArtists()">
     <nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand">
@@ -68,82 +68,20 @@
         </div>
     </div>
     </nav>
-
+    
     <main>
         <header class="text-center py-5 mb-5 shadow-sm">
-            <div class="container">
-                <h1 class="display-4 fw-bold">Artistas</h1>
-            </div>
+            <h1 class="display-4 fw-bold">Lista de Artistas</h1>
         </header>
-        <div class="container-fluid p-5">
-            <div>
-                <div class="row p-2">
-                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#alta" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Dar de alta
-                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>
-                    </a>
-                    <div class="collapse" id="alta">
-                        <div class="card card-body">
-                            <form onsubmit = "altaA(event, this)">
-                                <label for="artista" class="form-label"> Nombre: </label>
-                                <input type="text" id="artista" name="nombre" class="form-control" required/>
-                                <br/>
-                                <label for="genero" class="form-label"> Genero: </label>
-                                <input type="text" id="genero" name="genero" class="form-control" required/>
-                                <br/>
-                                <button class="btn btn-primary" type="submit"> Alta </button> 
-                            </form>
-                        </div>
-                        <br/>
-                    </div>
-                <hr/>
-                </div>
-                <div class="row p-2">
-                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Dar de baja
-                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>
-                    </a>
-                    <div class="collapse" id="baja">
-                        <div class="card card-body">
-                            <form onsubmit = "bajaA(event, this)">
-                                <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="nombre" class="form-control" required/>
-                                <br/>
-                                <button class="btn btn-primary" type="submit"> Baja </button> 
-                            </form>
-                        </div>
-                        <br/>
-                    </div>
-                <hr/>
-                </div>
-                <div class="row p-2">
-                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Modificar un artista
-                    <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>
-                    </a>
-                    <div class="collapse" id="modificacion">
-                        <div class="card card-body">
-                            <form onsubmit = "modC(event, this)">
-                                <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="nombre" class="form-control" required/>
-                                <br/>
-                                <label for="genero" class="form-label"> Genero: </label>
-                                <input type="text" id="genero" name="genero" class="form-control" required/>
-                                <br/>
-                                <button class="btn btn-primary" type="submit"> Modificar </button> 
-                            </form>
-                        </div>
-                        <br/>
-                    </div>
-                <hr/>
-                </div>
+        <div class="container mt-4">
+            <div id="items-container" class="list-group shadow-sm mb-4">
+
             </div>
+            <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id="pagination-count">
+
+            </ul>
+            </nav>  
         </div>
     </main>
 
@@ -195,6 +133,49 @@
     </script>
     <script>
         //APIs
+        let currentPage = 1;
+        const pageSize = 1;
+
+        async function loadArtists() {
+            const res = await getArtistas();
+            if (res[0]) {
+                console.log(res[1]);
+                totalItems = formatearLista(res[1]);
+                pagination(totalItems);
+            }
+            else {
+                console.log(res[1])
+            }
+        }
+
+        function pagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / pageSize);
+            const control = document.getElementById('pagination-count');
+            let html = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                activo = "";
+                if (i == currentPage)
+                    activo = "active"
+                html += `
+                    <li class="page-item ${activo}">
+                        <a class="page-link" href="#" onclick="cambioPag(${i})">${i}</a>
+                    </li>
+                    `;
+            }
+            control.innerHTML = html;
+        }
+        function formatearLista(items) {
+            const container = document.getElementById('items-container');
+            container.innerHTML = items;
+            return 3;
+        }
+        function cambioPag(pag) {
+            currentPage = pag;
+            fetchItems(pag);
+        }
+
+        
     </script>
 </body>
 </html>
