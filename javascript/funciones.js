@@ -214,3 +214,33 @@ async function deleteArtista(id) {
         return [false, error.message]
     }
 }
+
+async function getLista(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaArtistas?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
+    }
+}
+
+async function getListaC(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaConciertos?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
+    }
+}
