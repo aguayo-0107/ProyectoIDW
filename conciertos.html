@@ -84,14 +84,14 @@
                 </a>
                 <div class="collapse" id="alta">
                     <div class="card card-body">
-                        <form onsubmit = "altaC(event, this)">
+                        <form onsubmit = "altaConcierto(event, this)">
                             <label for="lugar" class="form-label"> Lugar: </label>
                             <input type="text" id="lugar" name="lugar" class="form-control" required/>
                             <br/>
                             <label for="artistaID" class="form-label"> Artista: </label>
                             <select id="artistaID" name="artistaID" class="form-select" aria-label="Artist Select">
                                 <option selected>Selecciona un artista</option>
-                                <div id="opciones">
+                                <div id="opcionesArtista">
                                 
                                 </div>
                             </select>
@@ -107,7 +107,7 @@
             <hr/>
             </div>
             <div class="row p-2">
-                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadConciertos()">
                 Dar de baja
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -115,9 +115,13 @@
                 </a>
                 <div class="collapse" id="baja">
                     <div class="card card-body">
-                        <form onsubmit = "bajaC(event, this)">
-                            <label for="concierto" class="form-label"> ID: </label>
-                            <input type="text" id="concierto" name="concierto" class="form-control" required/>
+                        <form onsubmit = "bajaConcierto(event, this)">
+                            <select id="artistaID" name="id" class="form-select" aria-label="Artist Select">
+                                <option selected>Selecciona un concierto</option>
+                                <div id="opcionesConcierto1">
+                                
+                                </div>
+                            </select>
                             <br/>
                             <button class="btn btn-primary" type="submit"> Baja </button> 
                         </form>
@@ -127,7 +131,7 @@
             <hr/>
             </div>
             <div class="row p-2">
-                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadConciertos()">
                 Modificar un concierto
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -135,15 +139,16 @@
                 </a>
                 <div class="collapse" id="modificacion">
                     <div class="card card-body">
-                        <form onsubmit = "modC(event, this)">
-                            <label for="artista" class="form-label"> ID: </label>
-                            <input type="text" id="artista" name="nombre" class="form-control" required/>
+                        <form onsubmit = "modConcierto(event, this)">
+                            <select id="artistaID" name="id" class="form-select" aria-label="Artist Select">
+                                <option selected>Selecciona un concierto</option>
+                                <div id="opcionesConcierto2">
+                                
+                                </div>
+                            </select>
                             <br/>
                             <label for="fecha" class="form-label"> Fecha: </label>
                             <input type="text" id="fecha" name="fecha" class="form-control" required/>
-                            <br/>
-                            <label for="lugar" class="form-label"> Lugar: </label>
-                            <input type="text" id="lugar" name="lugar" class="form-control" required/>
                             <br/>
                             <button class="btn btn-primary" type="submit"> Modificar </button> 
                         </form>
@@ -258,14 +263,27 @@
         //APIs
         async function loadConciertos() {
             const res = await getConciertos()
-            if (res[0])
-                console.log(res[1])
+            if (res[0]) {
+                const options1 = document.getElementById("opcionesConcierto1")
+                const options2 = document.getElementById("opcionesConcierto2")
+                let html = "";
+                for (let i = 0; i < res[1].length; i++) {
+                    artista = await getArtista(res[1][i].artistaID)
+                    if (artista[0]) {
+                        html += `
+                                <option value="${res[1][i].id}">${artista[1].nombre}, ${res[1][i].fecha}</option>
+                            `;
+                    }
+                }
+                options1.innerHTML = html;
+                options2.innerHTML = html; 
+            }
         }
 
         async function loadArtists() {
             const res = await getArtistas()
             if (res[0]) {
-                const options = document.getElementById("opciones")
+                const options = document.getElementById("opcionesArtista")
                 let html = "";
 
                 let cacheArtistas = {};
@@ -279,14 +297,44 @@
                 localStorage.setItem('artistas_cache', JSON.stringify(cacheArtistas));
             }
         }
-        async function altaC(event, form) {
+
+        async function altaConcierto(event, form) {
             event.preventDefault();
 
             //Convertimos el formulario a JSON
             const data = Object.fromEntries(new FormData(form));
             
-            const res = await postConcierto(data);
-            console.log(res)
+            const response = await postConcierto(data);
+            if (response[0]) {
+                alert("Concierto dado de alta exitosamente")
+            }
+            else {
+                alert("Error al dar de alta concierto: " + response[1])
+            }
+        }
+
+        async function bajaConcierto(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await deleteConcierto(data.id)
+            if (response[0]) {
+                alert("Concierto dado de baja exitosamente")
+            }
+            else {
+                alert("Error al dar de baja concierto: " + response[1])
+            }
+        }
+
+        async function modConcierto(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await patchConcierto(data.id, data)
+            if (response[0]) {
+                alert("Concierto modificado exitosamente")
+            }
+            else {
+                alert("Error al modificar concierto: " + reponse[1])
+            }
         }
     </script>
     <script>

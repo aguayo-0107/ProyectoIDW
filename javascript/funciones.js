@@ -1,12 +1,11 @@
-//const url_base = "https://proyectoidw.onrender.com"
-const url_base = "http://127.0.0.1:8000"
+const url_base = "https://proyectoidw.onrender.com"
 
 //CONCIERTOS
 //Post /conciertos
 
 async function postConcierto(data) {
     try {
-        const response = await fetch(url_base + "/conciertos" , {
+        const response = await fetch(url_base + "/conciertos", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -24,7 +23,7 @@ async function postConcierto(data) {
     }
 }
 
-//Get /conciertos (lugar | None)
+//Get /conciertos (lugar | fecha | None)
 
 async function getConciertos(data) {
     try {
@@ -37,11 +36,12 @@ async function getConciertos(data) {
             const info = await response.json()
             return [true, info]
         } else {
-            return [false, error]
+            const info = await response.text()
+            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
         }
     }
     catch (error) {
-        return [false, error]
+        return [false, error.message]
     }
 }
 
@@ -70,10 +70,9 @@ async function getConcierto(id) {
 
 async function patchConcierto(id, data) {
     try {
-        const response = await fetch(url_base + "/conciertos/" + id , {
+        const response = await fetch(url_base + "/conciertos/" + id + "?nueva_fecha=" + data.fecha, {
             method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
+            headers: {"Content-Type": "application/json"}
         })
         if (response.ok) {
             const info = await response.json()
@@ -97,8 +96,7 @@ async function deleteConcierto(id) {
             headers: {"Content-Type": "application/json"}
         })
         if (response.ok) {
-            const info = await response.json()
-            return [true, info]
+            return [true, null]
         } else {
             const info = await response.text()
             return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
@@ -115,7 +113,7 @@ async function deleteConcierto(id) {
 
 async function postArtista(data) {
     try {
-        const response = await fetch(url_base + "/artistas" , {
+        const response = await fetch(url_base + "/artistas", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -133,7 +131,7 @@ async function postArtista(data) {
     }
 }
 
-//Get /artistas (nombre | None)
+//Get /artistas (nombre | ranking | None)
 
 async function getArtistas(data) {
     try {
@@ -180,17 +178,16 @@ async function getArtista(id) {
 
 async function patchArtista(id, data) {
     try {
-        const response = await fetch(url_base + "/artistas/" + id , {
+        const response = await fetch(url_base + "/artistas/" + id + "?nuevo_genero=" + data.genero, {
             method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
+            headers: {"Content-Type": "application/json"}
         })
         if (response.ok) {
             const info = await response.json()
             return [true, info]
         } else {
             const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return [false, info]
         }
     }
     catch (error) {
@@ -207,8 +204,7 @@ async function deleteArtista(id) {
             headers: {"Content-Type": "application/json"}
         })
         if (response.ok) {
-            const info = await response.json()
-            return [true, info]
+            return [true, null]
         } else {
             const info = await response.text()
             return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
