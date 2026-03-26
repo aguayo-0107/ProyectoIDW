@@ -36,6 +36,7 @@ async function getConciertos(data) {
             const info = await response.json()
             return [true, info]
         } else {
+<<<<<<< HEAD
             return [false, error]
         }
     }
