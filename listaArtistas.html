@@ -48,9 +48,6 @@
                 </li>
             </ul>
             </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="estadisticas.html">Estadísticas</a>
-            </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Tema
@@ -74,7 +71,7 @@
             <h1 class="display-4 fw-bold">Lista de Artistas</h1>
         </header>
         <div class="container mt-4">
-            <div class="row row-cols-3 g-4 p-5" id="items-container">
+            <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-4 p-2 p-lg-5" id="items-container">
             </div>
             <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id="pagination-count">
@@ -170,7 +167,7 @@
                 html += `
                     <div class="col">
                     <div class="card shadow-sm">
-                    <h5 class="card-header">Top: ${items[i].ranking}</h5>
+                    <h5 class="card-header">Fans: ${items[i].fans}</h5>
                     <div class="card-body">
                         <h5 class="card-title">${items[i].nombre}</h5>
                         <p class="card-text">Genero: ${items[i].genero}</p>

@@ -8,7 +8,7 @@
     <link rel="icon" href="img/logo.png">
     <title>Managers</title>    
 </head>
-<body>
+<body onload="grafica()">
     <nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand">
@@ -48,9 +48,6 @@
                 </li>
             </ul>
             </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="estadisticas.html">Estadísticas</a>
-            </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Tema
@@ -77,7 +74,7 @@
         </header>
         <div class="container-fluid p-5">
             <div>
-                <div class="row p-2">
+                <div class="row p-2" id="altaSec">
                     <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#alta" role="button" aria-expanded="false" aria-controls="collapseExample">
                     Dar de alta
                     <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
@@ -100,7 +97,7 @@
                     </div>
                 <hr/>
                 </div>
-                <div class="row p-2">
+                <div class="row p-2" id="bajaSec">
                     <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadArtists()">
                     Dar de baja
                     <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
@@ -153,8 +150,21 @@
                 </div>
             </div>
         </div>
+        <section id="metricas" class="container mb-5">
+            <h2 class="h2 text-center fw-bold">Popularidad</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body">
+                            <canvas id="podioChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    <div class="fixed-bottom p-3">
+
+    <div class="fixed-bottom p-3 d-none d-lg-block">
         <span class="badge bg-dark opacity-75">
             Ptsss...: <kbd>Alt + A</kbd> Alta | <kbd>Alt + B</kbd> Baja
         </span>
@@ -184,6 +194,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="./javascript/funciones.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         //Funcionalidad
         const doc = document.documentElement;
@@ -229,6 +240,7 @@
             response = await postArtista(data)
             if (response[0]) {
                 alert("Artista dado de alta exitosamente")
+                grafica();
             }
             else {
                 alert("Error al dar de alta artista: " + response[1])
@@ -241,6 +253,7 @@
             response = await deleteArtista(data.id)
             if (response[0]) {
                 alert("Artista dado de baja exitosamente")
+                grafica();
             }
             else {
                 alert("Error al dar de baja artista: " + response[1])
@@ -267,12 +280,12 @@
 
             if (event.altKey && key === 'a') {
                 event.preventDefault();
-                irA("alta");
+                irA("altaSec");
             }
 
             if (event.altKey && key === 'b') {
                 event.preventDefault();
-                irA("baja");
+                irA("bajaSec");
             }
         });
 
@@ -291,7 +304,72 @@
         }
     </script>
     <script>
-        //APIs
+        // Grafica
+        let ranking;
+
+        async function grafica() {
+            const res = await getArtistas()
+            if (res[0]) {
+                const ctx = document.getElementById('podioChart').getContext('2d');
+
+                const artistasOrdenados = res[1]
+                    .sort((a, b) => b.fans - a.fans)
+                    .slice(0, 10);
+                const nombres = artistasOrdenados.map(a => a.nombre);
+                const cantidadFans = artistasOrdenados.map(a => a.fans);
+
+                if (ranking) {
+                    ranking.data.labels = nombres;
+                    ranking.data.datasets[0].data = cantidadFans;
+                    ranking.update();
+                }
+                else {
+                    ranking = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: nombres,
+                            datasets: [{
+                                label: 'Número de Fans',
+                                data: cantidadFans,
+                                backgroundColor: [
+                                    '#6D28D9',
+                                    '#2563EB',
+                                    '#F97316',
+                                    '#374151'
+                                ],
+                                borderRadius: 10,
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        afterLabel: function(context) {
+                                            return `Ranking Actual: #${context.dataIndex + 1}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: '#e5e7eb' },
+                                    title: { display: true, text: 'Fans Totales' },
+                                    ticks: {stepsize: 20000}
+                                },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                alert("Sucedio un error al cargar el ranking de popularidad\n" + res[1]);
+            }
+        }
     </script>
 </body>
 </html>
