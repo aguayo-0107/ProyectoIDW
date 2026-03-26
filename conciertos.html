@@ -84,7 +84,7 @@
                 </a>
                 <div class="collapse" id="alta">
                     <div class="card card-body">
-                        <form onsubmit = "altaC(event, this)">
+                        <form onsubmit = "altaConcierto(event, this)">
                             <label for="lugar" class="form-label"> Lugar: </label>
                             <input type="text" id="lugar" name="lugar" class="form-control" required/>
                             <br/>
@@ -115,9 +115,9 @@
                 </a>
                 <div class="collapse" id="baja">
                     <div class="card card-body">
-                        <form onsubmit = "bajaC(event, this)">
+                        <form onsubmit = "bajaConcierto(event, this)">
                             <label for="concierto" class="form-label"> ID: </label>
-                            <input type="text" id="concierto" name="concierto" class="form-control" required/>
+                            <input type="text" id="concierto" name="id" class="form-control" required/>
                             <br/>
                             <button class="btn btn-primary" type="submit"> Baja </button> 
                         </form>
@@ -135,15 +135,12 @@
                 </a>
                 <div class="collapse" id="modificacion">
                     <div class="card card-body">
-                        <form onsubmit = "modC(event, this)">
+                        <form onsubmit = "modConcierto(event, this)">
                             <label for="artista" class="form-label"> ID: </label>
-                            <input type="text" id="artista" name="nombre" class="form-control" required/>
+                            <input type="text" id="artista" name="id" class="form-control" required/>
                             <br/>
                             <label for="fecha" class="form-label"> Fecha: </label>
                             <input type="text" id="fecha" name="fecha" class="form-control" required/>
-                            <br/>
-                            <label for="lugar" class="form-label"> Lugar: </label>
-                            <input type="text" id="lugar" name="lugar" class="form-control" required/>
                             <br/>
                             <button class="btn btn-primary" type="submit"> Modificar </button> 
                         </form>
@@ -215,8 +212,7 @@
             doc.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
         }
-    </script>
-    <script>
+        
         //APIs
         async function loadConciertos() {
             const res = await getConciertos()
@@ -239,14 +235,44 @@
                 
 
         }
-        async function altaC(event, form) {
+
+        async function altaConcierto(event, form) {
             event.preventDefault();
 
             //Convertimos el formulario a JSON
             const data = Object.fromEntries(new FormData(form));
             
-            const res = await postConcierto(data);
-            console.log(res)
+            const response = await postConcierto(data);
+            if (response[0]) {
+                alert("Concierto dado de alta exitosamente\nID: " + response[1].id)
+            }
+            else {
+                alert("Error al dar de alta concierto: " + response[1])
+            }
+        }
+
+        async function bajaConcierto(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await deleteConcierto(data.id)
+            if (response[0]) {
+                alert("Concierto dado de baja exitosamente")
+            }
+            else {
+                alert("Error al dar de baja concierto: " + response[1])
+            }
+        }
+
+        async function modConcierto(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await patchConcierto(data.id, data)
+            if (response[0]) {
+                alert("Concierto modificado exitosamente")
+            }
+            else {
+                alert("Error al modificar concierto: " + reponse[1])
+            }
         }
     </script>
 </body>

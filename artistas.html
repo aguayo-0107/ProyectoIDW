@@ -86,7 +86,7 @@
                     </a>
                     <div class="collapse" id="alta">
                         <div class="card card-body">
-                            <form onsubmit = "altaA(event, this)">
+                            <form onsubmit = "altaArtista(event, this)">
                                 <label for="artista" class="form-label"> Nombre: </label>
                                 <input type="text" id="artista" name="nombre" class="form-control" required/>
                                 <br/>
@@ -109,9 +109,9 @@
                     </a>
                     <div class="collapse" id="baja">
                         <div class="card card-body">
-                            <form onsubmit = "bajaA(event, this)">
+                            <form onsubmit = "bajaArtista(event, this)">
                                 <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="nombre" class="form-control" required/>
+                                <input type="text" id="artista" name="id" class="form-control" required/>
                                 <br/>
                                 <button class="btn btn-primary" type="submit"> Baja </button> 
                             </form>
@@ -129,9 +129,9 @@
                     </a>
                     <div class="collapse" id="modificacion">
                         <div class="card card-body">
-                            <form onsubmit = "modC(event, this)">
+                            <form onsubmit = "modArtista(event, this)">
                                 <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="nombre" class="form-control" required/>
+                                <input type="text" id="artista" name="id" class="form-control" required/>
                                 <br/>
                                 <label for="genero" class="form-label"> Genero: </label>
                                 <input type="text" id="genero" name="genero" class="form-control" required/>
@@ -192,9 +192,44 @@
             doc.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
         }
-    </script>
-    <script>
-        //APIs
+
+        //APIS
+        async function altaArtista(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await postArtista(data)
+            if (response[0]) {
+                alert("Artista dado de alta exitosamente\nID: " + response[1].id)
+            }
+            else {
+                alert("Error al dar de alta artista: " + response[1])
+            }
+        }
+
+        async function bajaArtista(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await deleteArtista(data.id)
+            if (response[0]) {
+                alert("Artista dado de baja exitosamente")
+            }
+            else {
+                alert("Error al dar de baja artista: " + response[1])
+            }
+        }
+
+        async function modArtista(event, form) {
+            event.preventDefault()
+            const data = Object.fromEntries(new FormData(form))
+            response = await patchArtista(data.id, data)
+            if (response[0]) {
+                alert("Artista modificado exitosamente")
+            }
+            else {
+                alert("Error al modificar artista: " + reponse[1])
+            }
+        }
+
     </script>
 </body>
 </html>
