@@ -10,7 +10,7 @@
 
 ## Resumen del producto
 
-El presente proyecto consiste en el desarrollo de una aplicación web orientada a la gestión de artistas y conciertos dentro de la industria musical. La plataforma permite a los usuarios visualizar información relevante sobre artistas, consultar eventos, analizar datos de popularidad y navegar entre distintas secciones de manera estructurada.
+El proyecto consiste en el desarrollo de una aplicación web orientada a la gestión de artistas y conciertos dentro de la industria musical. La plataforma permite a los usuarios visualizar información relevante sobre artistas, consultar eventos, analizar datos de popularidad y navegar entre distintas secciones.
 
 El sistema integra tanto un frontend como un backend. En el frontend se implementa una interfaz responsiva utilizando HTML, CSS, Bootstrap y JavaScript, mientras que el backend fue desarrollado en Python mediante el uso de FastAPI. La aplicación consume datos desde una API, gestiona información de forma dinámica y permite operaciones básicas sobre las entidades principales del sistema.
 
