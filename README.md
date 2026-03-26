@@ -5,8 +5,137 @@
 * Kyrie Flores Absalón
 * Solange Lejeune Tomao
 ---
-# Puntos exta
 
+# Plataforma para Managers de Música
+
+## Resumen del producto
+
+El presente proyecto consiste en el desarrollo de una aplicación web orientada a la gestión de artistas y conciertos dentro de la industria musical. La plataforma permite a los usuarios visualizar información relevante sobre artistas, consultar eventos, analizar datos de popularidad y navegar entre distintas secciones de manera estructurada.
+
+El sistema integra tanto un frontend como un backend. En el frontend se implementa una interfaz responsiva utilizando HTML, CSS, Bootstrap y JavaScript, mientras que el backend fue desarrollado en Python mediante el uso de FastAPI. La aplicación consume datos desde una API, gestiona información de forma dinámica y permite operaciones básicas sobre las entidades principales del sistema.
+
+Asimismo, se incorpora almacenamiento local para persistencia de datos, visualización de información mediante gráficas y un sistema de tema claro y oscuro, lo cual mejora la experiencia de usuario.
+
+---
+
+## Instrucciones para levantar el frontend
+
+1. Clonar el repositorio:
+
+```bash
+git clone https://github.com/aguayo-0107/ProyectoIDW.git
+````
+
+2. Acceder a la carpeta del proyecto:
+
+```bash
+cd ProyectoIDW
+```
+
+3. Abrir el proyecto en un editor de código, preferentemente Visual Studio Code.
+
+4. Ejecutar el archivo `index.html` directamente en el navegador o utilizar una extensión como Live Server para una mejor experiencia de desarrollo.
+
+5. Verificar que se cuente con conexión a internet para el correcto consumo de la API.
+
+---
+
+## Instrucciones para levantar el backend
+
+1. Acceder a la carpeta del backend:
+
+```bash
+cd python
+```
+
+2. Crear un entorno virtual:
+
+```bash
+python -m venv venv
+```
+
+3. Activar el entorno virtual:
+
+En Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+En Mac/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+4. Instalar las dependencias necesarias:
+
+```bash
+pip install -r requirements.txt
+```
+
+El archivo `requirements.txt` incluye las librerías necesarias para el funcionamiento del backend, entre ellas FastAPI, Uvicorn y Pydantic.
+
+5. Ejecutar el servidor:
+
+```bash
+uvicorn main:app --reload
+```
+
+6. El servidor se ejecutará en una dirección similar a:
+
+```bash
+http://127.0.0.1:8000
+```
+
+---
+
+## Enlace a la página web del cliente
+
+[https://musicaidw.site](https://musicaidw.site)
+
+---
+
+## Enlace al health endpoint de la API
+
+Actualmente, el backend desplegado se encuentra en:
+
+[https://proyectoidw.onrender.com](https://proyectoidw.onrender.com)
+
+En caso de implementar un endpoint de verificación, este puede consultarse en:
+
+[https://proyectoidw.onrender.com/health](https://proyectoidw.onrender.com/health)
+
+---
+
+## Sección de autores
+
+### Mariana Aguayo
+
+![Mariana Aguayo](img/mariana.jpg)
+
+### Kyrie Flores Absalón
+
+![Kyrie Flores Absalón](img/kyrie.jpg)
+
+### Solange Lejeune Tomao
+
+![Solange Lejeune Tomao](img/solange.jpg)
+
+---
+
+## Live demo del proyecto
+
+El proyecto puede visualizarse en el siguiente enlace:
+
+[https://musicaidw.site](https://musicaidw.site)
+
+---
+
+## Resolución de dudas del profesor posterior a la presentación
+
+
+# Puntos extra
 ## Justificación de la paleta de colores
 
 La selección de colores para esta aplicación no se hizo únicamente con un criterio estético, sino también funcional. Como nuestro proyecto está enfocado en una **plataforma para managers de música**, la interfaz debe transmitir **profesionalismo** pero también **creatividad**, además de mantener una buena legibilidad para mostrar artistas, conciertos, estadísticas y fechas de manera clara. Para cumplir con las especificaciones del proyecto la aplicación debe ser **funcional y visualmente atractiva**+ y contar con un sistema de **tema claro/oscuro persistente**. La paleta esta pensada para adaptarse correctamente a ambos modos.
