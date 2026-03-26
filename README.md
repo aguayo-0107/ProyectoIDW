@@ -226,3 +226,7 @@ Como el proyecto requiere implementar un tema claro/oscuro persistente, la palet
 ### Conclusión
 
 La paleta de colores que escogimos busca reflejar: una plataforma profesional de gestión dentro del mundo de la música. El **morado** aporta creatividad e identidad, el **azul** refuerza confianza y estructura, el **naranja** introduce dinamismo y acción, y los tonos **neutros** aseguran legibilidad y equilibrio visual. Todos estos colores permiten construir una interfaz moderna, atractiva y funcional, alineada tanto con el rubro musical como con los requerimientos técnicos del proyecto.
+
+## Compra del Dominio
+- Compramos el dominio musicaidw.site ([https://musicaidw.site](https://musicaidw.site)) para nuestro sitio web.
+
