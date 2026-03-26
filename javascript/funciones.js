@@ -1,4 +1,5 @@
-const url_base = "https://proyectoidw.onrender.com"
+//const url_base = "https://proyectoidw.onrender.com"
+const url_base = "http://127.0.0.1:8000"
 
 //CONCIERTOS
 //Post /conciertos
@@ -216,5 +217,35 @@ async function deleteArtista(id) {
     }
     catch (error) {
         return [false, error.message]
+    }
+}
+
+async function getLista(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaArtistas?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
+    }
+}
+
+async function getListaC(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaConciertos?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
     }
 }
