@@ -12,14 +12,13 @@ async function postConcierto(data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -36,12 +35,12 @@ async function getConciertos(data) {
             const info = await response.json()
             return [true, info]
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+<<<<<<< HEAD
+            return [false, error]
         }
     }
     catch (error) {
-        return [false, error.message]
+        return [false, error]
     }
 }
 
@@ -55,14 +54,13 @@ async function getConcierto(id) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -77,14 +75,13 @@ async function patchConcierto(id, data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -98,14 +95,13 @@ async function deleteConcierto(id) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -122,14 +118,13 @@ async function postArtista(data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -146,12 +141,11 @@ async function getArtistas(data) {
             const info = await response.json()
             return [true, info]
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return [false, error]
         }
     }
     catch (error) {
-        return [false, error.message]
+        return [false, error]
     }
 }
 
@@ -165,14 +159,13 @@ async function getArtista(id) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, info)
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -187,14 +180,13 @@ async function patchArtista(id, data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
@@ -208,14 +200,13 @@ async function deleteArtista(id) {
         })
         if (response.ok) {
             const info = await response.json()
-            return [true, info]
+            return (true, JSON.stringify(info))
         } else {
-            const info = await response.text()
-            return [false, JSON.parse(info).detail[0].msg ?? JSON.parse(info).detail]
+            return (false, error)
         }
     }
     catch (error) {
-        return [false, error.message]
+        return (false, error)
     }
 }
 
