@@ -1,5 +1,4 @@
-//const url_base = "https://proyectoidw.onrender.com"
-const url_base = "http://127.0.0.1:8000"
+const url_base = "https://proyectoidw.onrender.com"
 
 //CONCIERTOS
 //Post /conciertos
