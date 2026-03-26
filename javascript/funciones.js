@@ -34,13 +34,13 @@ async function getConciertos(data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return (true, info)
+            return [true, info]
         } else {
-            return (false, error)
+            return [false, error]
         }
     }
     catch (error) {
-        return (false, error)
+        return [false, error]
     }
 }
 

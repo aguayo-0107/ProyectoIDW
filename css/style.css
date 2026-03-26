@@ -33,6 +33,12 @@ body {
     
     --bs-link-color: var(--color-azul);
     --bs-border-color: var(--color-pizarra);
+
+    --fc-border-color: var(--color-pizarra); /* Gris pizarra */
+    --fc-button-bg-color: var(--color-morado); /* Morado principal */
+    --fc-button-border-color: var(--color-morado);
+    --fc-button-hover-bg-color: var(--color-azul); /* Azul secundario */
+    --fc-today-bg-color: #6d28d91a; /* Morado muy claro */
 }
 
 [data-bs-theme="dark"] {
@@ -90,4 +96,17 @@ h1, h2, h3, h4, h5 {
 .dropdown-item:hover {
     background-color: var(--color-morado);
     color: white;
+}
+
+.fc-toolbar-title {
+    color: var(--color-morado);
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.fc-event {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px 5px;
+    border: none;
 }

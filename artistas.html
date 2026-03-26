@@ -146,6 +146,11 @@
             </div>
         </div>
     </main>
+    <div class="fixed-bottom p-3">
+        <span class="badge bg-dark opacity-75">
+            Ptsss...: <kbd>Alt + A</kbd> Alta | <kbd>Alt + B</kbd> Baja
+        </span>
+    </div>
 
     <footer class="pt-5 pb-4 shadow-lg">
         <div class="container text-center text-md-start">
@@ -191,6 +196,37 @@
         function applyTheme(theme) {
             doc.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
+        }
+
+        window.addEventListener('keydown', (event) => {
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                return; 
+            }
+            const key = event.key.toLowerCase();
+
+            if (event.altKey && key === 'a') {
+                event.preventDefault();
+                irA("alta");
+            }
+
+            if (event.altKey && key === 'b') {
+                event.preventDefault();
+                irA("baja");
+            }
+        });
+
+        function irA(id) {
+            const elemento = document.getElementById(id);
+
+            if (elemento) {
+                const contenedorColapsable = elemento.closest('.collapse');
+
+                if (contenedorColapsable && !contenedorColapsable.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(contenedorColapsable);
+                } 
+                elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                bsCollapse.show();
+            }
         }
     </script>
     <script>
