@@ -2,11 +2,12 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from models import ArtistaDTO, ArtistaResp, ConciertoDTO, ConciertoResp
 from uuid import uuid4, UUID
+import random
 
 app = FastAPI()
 # Cambiar a los origenes permitidos
 origins = ["http://127.0.0.1:5500",  # Para pruebas, quitar al final
-           "https://musicaidw.site"] 
+           "https://musicaidw.site"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,17 +23,17 @@ artistas_db = {
         'id': UUID('899cd06a-211b-41a0-998a-e90dbad30b69'), 
         'nombre': 'Daft Punk', 
         'genero': 'Electronic',
-        'ranking': 1}, 
+        'fans': 100000}, 
     UUID('ea44bd1d-00ee-431a-a6f3-0c949f4ca752'): {
         'id': UUID('ea44bd1d-00ee-431a-a6f3-0c949f4ca752'), 
         'nombre': 'Gustavo Cerati', 
         'genero': 'Rock Alternativo',
-        'ranking': 2}, 
+        'fans': 1200}, 
     UUID('46ae8541-51d1-4e23-ad61-a8c3cc64555e'): {
         'id': UUID('46ae8541-51d1-4e23-ad61-a8c3cc64555e'), 
         'nombre': 'Björk', 
         'genero': 'Art Pop',
-        'ranking': 3}
+        'fans': 13647}
 }
 
 conciertos_db = {
@@ -142,13 +143,13 @@ async def crear_artista(artista: ArtistaDTO):
         "id": nuevo_id,
         "nombre": artista.nombre,
         "genero": artista.genero,
-        "ranking": len(artistas_db) + 1
+        "fans": random.randint(1000, 100000)
     }
 
     artistas_db[nuevo_id] = nuevo_artista
     return nuevo_artista
 
-# GET - Obtener artistas por nombre o ranking
+# GET - Obtener artistas por nombre
 @app.get("/artistas", response_model=list[ArtistaResp])
 async def obtener_artistas(nombre: str | None = None, ranking: int = -1):
     resultados = list(artistas_db.values())
@@ -157,11 +158,6 @@ async def obtener_artistas(nombre: str | None = None, ranking: int = -1):
         resultados = [
             s for s in resultados
             if nombre_lower in s["nombre"].lower()
-        ]
-    elif ranking != -1:
-        resultados = [
-            s for s in resultados
-            if ranking == s["ranking"]
         ]
     return resultados
 
@@ -218,5 +214,5 @@ def get_items(page: int = 1, size: int = 10):
     items_paginados = lista_completa[start:end]
     
     return {"items": items_paginados,
-        "total": len(artistas_db),
+        "total": len(conciertos_db),
     }
