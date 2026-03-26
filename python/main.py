@@ -1,13 +1,14 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Response
 from fastapi.middleware.cors import CORSMiddleware
 from models import ArtistaDTO, ArtistaResp, ConciertoDTO, ConciertoResp
 from uuid import uuid4, UUID
 import random
+import os
+import time
 
 app = FastAPI()
 # Cambiar a los origenes permitidos
-origins = ["http://127.0.0.1:5500",  # Para pruebas, quitar al final
-           "https://musicaidw.site"]
+origins = ["https://musicaidw.site"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,17 +24,17 @@ artistas_db = {
         'id': UUID('899cd06a-211b-41a0-998a-e90dbad30b69'), 
         'nombre': 'Daft Punk', 
         'genero': 'Electronic',
-        'fans': 100000}, 
+        'fans': 981500}, 
     UUID('ea44bd1d-00ee-431a-a6f3-0c949f4ca752'): {
         'id': UUID('ea44bd1d-00ee-431a-a6f3-0c949f4ca752'), 
         'nombre': 'Gustavo Cerati', 
         'genero': 'Rock Alternativo',
-        'fans': 1200}, 
+        'fans': 1350}, 
     UUID('46ae8541-51d1-4e23-ad61-a8c3cc64555e'): {
         'id': UUID('46ae8541-51d1-4e23-ad61-a8c3cc64555e'), 
         'nombre': 'Björk', 
         'genero': 'Art Pop',
-        'fans': 13647}
+        'fans': 13600}
 }
 
 conciertos_db = {
@@ -54,6 +55,7 @@ conciertos_db = {
         'fecha': '2026-09-12'}
 }
 
+start_time = time.time()
 
 #---------------------
 # Llamadas de Concierto
@@ -215,4 +217,33 @@ def get_items(page: int = 1, size: int = 10):
     
     return {"items": items_paginados,
         "total": len(conciertos_db),
+    }
+    
+# ---------------------
+# Health Endpoint
+# ---------------------
+@app.get("/health")
+async def health_check():
+    uptime_seconds = time.time() - start_time
+    
+    data_ok = isinstance(artistas_db, dict) and len(artistas_db) >= 0 and isinstance(conciertos_db, dict) and len(conciertos_db) >= 0;
+    
+    is_on_render = os.getenv("RENDER", "false") == "true"
+
+    if not data_ok:
+        return Response(
+            content='{"status": "unhealthy", "reason": "data_structure_corrupted"}',
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            media_type="application/json"
+        )
+
+    return {
+        "status": "healthy",
+        "environment": "render" if is_on_render else "local",
+        "uptime_human": f"{uptime_seconds:.2f} seconds",
+        "version": "1.0.0",
+        "checks": {
+            "memory_data": "ok",
+            "render_env": "detected" if is_on_render else "not_detected"
+        }
     }
