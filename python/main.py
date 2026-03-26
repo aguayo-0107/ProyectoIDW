@@ -194,3 +194,29 @@ async def eliminar_artista(id: UUID):
 
     del artistas_db[id]
     return None
+
+@app.get("/listaArtistas")
+def get_items(page: int = 1, size: int = 10):
+    lista_completa = list(artistas_db.values())
+    
+    start = (page - 1) * size
+    end = start + size
+    
+    items_paginados = lista_completa[start:end]
+    
+    return {"items": items_paginados,
+        "total": len(artistas_db),
+    }
+    
+@app.get("/listaConciertos")
+def get_items(page: int = 1, size: int = 10):
+    lista_completa = list(conciertos_db.values())
+    
+    start = (page - 1) * size
+    end = start + size
+    
+    items_paginados = lista_completa[start:end]
+    
+    return {"items": items_paginados,
+        "total": len(artistas_db),
+    }

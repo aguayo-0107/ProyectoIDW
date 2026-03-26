@@ -1,4 +1,5 @@
-const url_base = "https://proyectoidw.onrender.com"
+//const url_base = "https://proyectoidw.onrender.com"
+const url_base = "http://127.0.0.1:8000"
 
 //CONCIERTOS
 //Post /conciertos
@@ -33,7 +34,7 @@ async function getConciertos(data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return (true, JSON.stringify(info))
+            return (true, info)
         } else {
             return (false, error)
         }
@@ -138,13 +139,13 @@ async function getArtistas(data) {
         })
         if (response.ok) {
             const info = await response.json()
-            return (true, JSON.stringify(info))
+            return [true, info]
         } else {
-            return (false, error)
+            return [false, error]
         }
     }
     catch (error) {
-        return (false, error)
+        return [false, error]
     }
 }
 
@@ -158,7 +159,7 @@ async function getArtista(id) {
         })
         if (response.ok) {
             const info = await response.json()
-            return (true, JSON.stringify(info))
+            return (true, info)
         } else {
             return (false, error)
         }
@@ -206,5 +207,35 @@ async function deleteArtista(id) {
     }
     catch (error) {
         return (false, error)
+    }
+}
+
+async function getLista(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaArtistas?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
+    }
+}
+
+async function getListaC(page, size) {
+    try {
+        const response = await fetch(`${url_base}/listaConciertos?page=${page}&size=${size}`);
+        if (response.ok) {
+            const info = await response.json()
+            return [true, info]
+        } else {
+            return [false, error]
+        }
+    }
+    catch (error) {
+        return [false, error]
     }
 }

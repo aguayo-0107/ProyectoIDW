@@ -74,8 +74,7 @@
             <h1 class="display-4 fw-bold">Lista de Artistas</h1>
         </header>
         <div class="container mt-4">
-            <div id="items-container" class="list-group shadow-sm mb-4">
-
+            <div class="row row-cols-3 g-4 p-5" id="items-container">
             </div>
             <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id="pagination-count">
@@ -134,24 +133,23 @@
     <script>
         //APIs
         let currentPage = 1;
-        const pageSize = 1;
+        const pageSize = 6;
 
         async function loadArtists() {
-            const res = await getArtistas();
+            const res = await getLista(currentPage, pageSize);
             if (res[0]) {
-                console.log(res[1]);
-                totalItems = formatearLista(res[1]);
-                pagination(totalItems);
+                formatearLista(res[1].items);
+                pagination(res[1].total);
             }
             else {
-                console.log(res[1])
+                alert("Hubo un error al cargar los datos. Intentalo más tarde.")
             }
         }
 
         function pagination(totalItems) {
             const totalPages = Math.ceil(totalItems / pageSize);
             const control = document.getElementById('pagination-count');
-            let html = '';
+            let html = "";
 
             for (let i = 1; i <= totalPages; i++) {
                 activo = "";
@@ -167,12 +165,25 @@
         }
         function formatearLista(items) {
             const container = document.getElementById('items-container');
-            container.innerHTML = items;
-            return 3;
+            html = "";
+            for (let i = 0; i < items.length; i++) {
+                html += `
+                    <div class="col">
+                    <div class="card shadow-sm">
+                    <h5 class="card-header">Top: ${items[i].ranking}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">${items[i].nombre}</h5>
+                        <p class="card-text">Genero: ${items[i].genero}</p>
+                    </div>
+                    </div>
+                </div>`
+            }
+            html += "</ul>"
+            container.innerHTML = html;
         }
         function cambioPag(pag) {
             currentPage = pag;
-            fetchItems(pag);
+            loadArtists();
         }
 
         

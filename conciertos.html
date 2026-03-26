@@ -85,13 +85,14 @@
                 <div class="collapse" id="alta">
                     <div class="card card-body">
                         <form onsubmit = "altaC(event, this)">
-                            <label for="artista" class="form-label"> Lugar: </label>
-                            <input type="text" id="artista" name="nombre" class="form-control" required/>
+                            <label for="lugar" class="form-label"> Lugar: </label>
+                            <input type="text" id="lugar" name="lugar" class="form-control" required/>
                             <br/>
                             <label for="artistaID" class="form-label"> Artista: </label>
                             <select id="artistaID" name="artistaID" class="form-select" aria-label="Artist Select">
                                 <option selected>Selecciona un artista</option>
                                 <div id="opciones">
+                                
                                 </div>
                             </select>
                             <br/>
@@ -225,8 +226,27 @@
 
         async function loadArtists() {
             const res = await getArtistas()
-            if (res[0])
-                console.log(res[1])
+            if (res[0]) {
+                const options = document.getElementById("opciones")
+                let html = "";
+                for (let i = 0; i < res[1].length; i++) {
+                    html += `
+                            <option value="${res[1][i].id}">${res[1][i].nombre}</option>
+                        `;
+                }
+                options.innerHTML = html; 
+            }
+                
+
+        }
+        async function altaC(event, form) {
+            event.preventDefault();
+
+            //Convertimos el formulario a JSON
+            const data = Object.fromEntries(new FormData(form));
+            
+            const res = await postConcierto(data);
+            console.log(res)
         }
     </script>
 </body>
