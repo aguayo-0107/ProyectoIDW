@@ -112,15 +112,15 @@ En caso de implementar un endpoint de verificación, este puede consultarse en:
 
 ### Mariana Aguayo
 
-![Mariana Aguayo](img/mariana.jpg)
+![Mariana Aguayo](img/mariana.png)
 
 ### Kyrie Flores Absalón
 
-![Kyrie Flores Absalón](img/kyrie.jpg)
+![Kyrie Flores Absalón](img/kyrie.png)
 
 ### Solange Lejeune Tomao
 
-![Solange Lejeune Tomao](img/solange.jpg)
+![Solange Lejeune Tomao](img/solange.png)
 
 ---
 
