@@ -70,7 +70,7 @@ async function getConcierto(id) {
 
 async function patchConcierto(id, data) {
     try {
-        const response = await fetch(url_base + "/conciertos/" + id + "nueva_fecha=" + data.fecha, {
+        const response = await fetch(url_base + "/conciertos/" + id + "?nueva_fecha=" + data.fecha, {
             method: "PATCH",
             headers: {"Content-Type": "application/json"}
         })

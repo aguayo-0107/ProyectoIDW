@@ -101,7 +101,7 @@
                 <hr/>
                 </div>
                 <div class="row p-2">
-                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#baja" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadArtists()">
                     Dar de baja
                     <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -110,8 +110,12 @@
                     <div class="collapse" id="baja">
                         <div class="card card-body">
                             <form onsubmit = "bajaArtista(event, this)">
-                                <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="id" class="form-control" required/>
+                                <select id="artistaID" name="id" class="form-select" aria-label="Artist Select">
+                                    <option selected>Selecciona un artista</option>
+                                    <div id="opcionesArtista1">
+                                    
+                                    </div>
+                                </select>
                                 <br/>
                                 <button class="btn btn-primary" type="submit"> Baja </button> 
                             </form>
@@ -121,7 +125,7 @@
                 <hr/>
                 </div>
                 <div class="row p-2">
-                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="h4 icon-link icon-link-hover link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#modificacion" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="loadArtists()">
                     Modificar un artista
                     <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -130,8 +134,12 @@
                     <div class="collapse" id="modificacion">
                         <div class="card card-body">
                             <form onsubmit = "modArtista(event, this)">
-                                <label for="artista" class="form-label"> ID: </label>
-                                <input type="text" id="artista" name="id" class="form-control" required/>
+                                <select id="artistaID" name="id" class="form-select" aria-label="Artist Select">
+                                    <option selected>Selecciona un artista</option>
+                                    <div id="opcionesArtista2">
+                                    
+                                    </div>
+                                </select>
                                 <br/>
                                 <label for="genero" class="form-label"> Genero: </label>
                                 <input type="text" id="genero" name="genero" class="form-control" required/>
@@ -193,13 +201,29 @@
             localStorage.setItem('theme', theme);
         }
 
+        async function loadArtists() {
+            const res = await getArtistas()
+            if (res[0]) {
+                const options1 = document.getElementById("opcionesArtista1")
+                const options2 = document.getElementById("opcionesArtista2")
+                let html = "";
+                for (let i = 0; i < res[1].length; i++) {
+                    html += `
+                            <option value="${res[1][i].id}">${res[1][i].nombre}</option>
+                        `;
+                }
+                options1.innerHTML = html; 
+                options2.innerHTML = html;
+            }
+        }
+
         //APIS
         async function altaArtista(event, form) {
             event.preventDefault()
             const data = Object.fromEntries(new FormData(form))
             response = await postArtista(data)
             if (response[0]) {
-                alert("Artista dado de alta exitosamente\nID: " + response[1].id)
+                alert("Artista dado de alta exitosamente")
             }
             else {
                 alert("Error al dar de alta artista: " + response[1])
