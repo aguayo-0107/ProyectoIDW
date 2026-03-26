@@ -77,7 +77,7 @@ async def crear_concierto(concierto: ConciertoDTO):
     conciertos_db[nuevo_id] = nuevo_concierto
     return nuevo_concierto
 
-#GET - Obtener conciertos por lugar o fecha
+# GET - Obtener conciertos por lugar o fecha
 @app.get("/conciertos", response_model=list[ConciertoResp])
 async def obtener_conciertos(lugar: str = "", fecha: str = ""):
     resultados = list(conciertos_db.values())
